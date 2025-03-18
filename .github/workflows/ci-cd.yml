@@ -1,0 +1,42 @@
+name: CI/CD para Microservicio Flask
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Correr pruebas
+        run: |
+          echo "Aquí irían las pruebas unitarias"
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Simulación de despliegue
+        run: echo "Aquí iría el comando para desplegar en producción"
